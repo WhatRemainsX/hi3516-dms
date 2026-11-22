@@ -2,24 +2,9 @@
 
 基于海思 Hi3516CV610（20S，1 TOPS NPU）的驾驶员监测系统（DMS）：疲劳检测（闭眼/PERCLOS/哈欠）+ 分心检测（纯 C PnP 头姿估计），按 GB 47955 四级报警链输出声光报警与事件录像。全部算法判定逻辑为手写 C 代码，模型仅负责感知输出。
 
-## 系统数据流
+## 系统架构
 
-```mermaid
-flowchart LR
-    S["SC4336P 传感器<br/>2560×1440 MIPI"] --> VI["VI"] --> ISP["ISP"] --> VPSS["VPSS"]
-    VPSS -->|"Ch0 1280×720@30"| VENC["VENC H.264"]
-    VENC --> RTSP["RTSP 推流<br/>+ OSD 状态叠加"]
-    VENC --> MP4["MP4 录像<br/>事件预录 10s+10s"]
-    VPSS -->|"Ch2 1136×640 等比缩放<br/>中心裁剪 640×640@12fps"| NPU["NPU 推理"]
-    NPU --> DET["SCRFD-500M<br/>人脸检测"]
-    DET --> LM["PFLD 98 点<br/>关键点"]
-    LM --> PNP["纯 C LM-PnP<br/>头姿 yaw/pitch/roll"]
-    LM --> EYE["眼睛开闭分类<br/>+ EAR 个人基线"]
-    PNP --> MET["指标判定<br/>PERCLOS / MAR / 分心"]
-    EYE --> MET
-    MET --> ALM["GB 47955 四级报警<br/>LED + 蜂鸣器"]
-    MET --> CLIP["事件触发录像"]
-```
+![系统架构图](docs/architecture.png)
 
 ## 演示
 
