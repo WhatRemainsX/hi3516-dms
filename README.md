@@ -30,3 +30,11 @@ make EXTRA_DEFS=-DAPP_DMS_PROFILE=1
 ```
 
 模型文件（.om）需用 ATC 转换后放到板端 `/mnt/sd/nfs/dms/` 下，不在仓库内。
+
+## 性能数据（Hi3516CV610 20S 实测）
+
+开启 `APP_DMS_PROFILE=1` 编译后上板运行，串口每 5s 输出一行 `dms_prof`：
+
+- DMS 线程帧率：**[X] fps**
+- 单帧总耗时：**[X] ms**（检测 det / 关键点 lm / 头姿 pose / 眼睛 eye 分项见串口输出）
+- 进程 CPU 占用：**[X] %**
