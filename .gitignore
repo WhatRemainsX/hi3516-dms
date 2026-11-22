@@ -1,0 +1,18 @@
+# Build outputs
+output/
+*.o
+*.a
+*.so
+*.elf
+*.bin
+*.map
+
+# Models (converted with ATC, kept outside repo)
+*.om
+*.onnx
+
+# Editor / OS
+.vscode/
+.idea/
+*.swp
+.DS_Store
